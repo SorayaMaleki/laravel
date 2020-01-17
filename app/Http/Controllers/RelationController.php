@@ -7,46 +7,32 @@ use App\User;
 
 class RelationController extends Controller
 {
-    public function index()
-    {
-        return 'webamooz.net';
-    }
-
-//    public function rel($id = 1)
-//    {
-//        $user = User::find($id);
-////        $result = $user->profile()->first();
-//        $result = $user->profile;
-//        dd($user->profile->user);
-//
-////        $posts = Post::where('user_id', $user->id)->get();
-////        $posts = $user->posts();
-//
-//
-//
-//        dd($result);
-//    }
 
     public function rel($id = 1)
     {
+/** one to one relation */
         $user = User::find($id);
+//        $result = $user->profile()->first();
+//        $result = $user->profile;
 
+
+/**one to many relation */
+
+//        $posts = Post::where('user_id', $user->id)->get();
+//        $posts = $user->posts();
 //        $result = $user->posts()->get();
 //        $result = $user->posts()->where('body', 'like', 'Quia%')->get();
-        $result = $user->posts;
-        dd($result[0]->user);
 
-        dd($result);
-    }
-    public function menytomenyrel($id){
+//          $result = $user->posts;
+
+/** many to many relation */
 //        $post=Post::find($id);
 //        $tags=$post->tags;
 
-        $user = User::find($id);
 //        $result = $user->posts()->where('updated_at', '>', '2018-10-07 15:06:32')->get()->toArray();
 //        $result = $user->lastPosts(40)->get()->toArray();
 
-
+/**  additional */
         $result=User::has('posts')->get();
         $result=User::has('posts','>=',5)->get();
         $result=User::whereHas('posts',function ($query){
@@ -79,9 +65,9 @@ class RelationController extends Controller
         dd($result);
 
     }
-    public function userprofile($id){
-//        to save and update ane to one relation
 
+    public function userprofile($id){
+/** save and update ane to one relation */
 
 //        $user = User::find($id);
 //        $user->profile()->delete(); dd('hazf shod');
@@ -112,7 +98,7 @@ class RelationController extends Controller
     }
 
     function userposts($id){
- //        to save and update ane to many relation
+/** save and update one to many relation */
 
         $user = User::find($id);
 
