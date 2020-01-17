@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/rel/{id?}', 'HomeController@rel');
-Route::get('/menytomenyrel/{id?}', 'HomeController@menytomenyrel');
+Route::get('/', 'RelationController@index');
+Route::get('/rel/{id?}', 'RelationController@rel');
+Route::get('/menytomenyrel/{id?}', 'RelationController@menytomenyrel');
+Route::get('/userprofile/{id?}', 'RelationController@userprofile');
+Route::get('/userposts/{id?}', 'RelationController@userposts');

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,5 +39,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
 //        return Post::where('user_id', $this->id)->get();
+    }
+    public function scopeLastPosts($query, $minuts = 5)
+    {
+        $time = Carbon::now()->subMinutes($minuts);
+        return $this->posts()->where('created_at', '>=',  $time);
     }
 }
