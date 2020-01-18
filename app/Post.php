@@ -47,7 +47,7 @@ class Post extends Model
     }
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'post_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany(Tag::class, 'post_tags');
 //        $result = \DB::table('post_tags')->where('post_id', $this->id)->pluck('tag_id')->toArray();
 //        return Tag::whereIn('id', $result)->get();
     }
