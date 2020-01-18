@@ -31,7 +31,6 @@ Route::get('session/get','SessionController@access');
 Route::get('session/set','SessionController@store');
 Route::get('session/remove','SessionController@delete');
 
-
 /** ajax request */
 Route::get('ajax',function(){
     return view('ajax');
@@ -61,9 +60,9 @@ Route::get('/adminonly','AuthorizationController@adminonly')->name('adminOnly');
 
 /** prefix  */
 Route::group(['prefix' => 'admin','namespace' => 'ManageApi' , 'as' => 'admin.'],function (){
-    Route::get('/','ManageController@index')->name('index');
+    Route::get('/','ManageController@index')->name('index');//admin.index
     Route::group(['prefix' => 'function', 'as' => 'function.'],function () {
-        Route::get('/function-list', 'ManageController@functionList')->name('list');
+        Route::get('/function-list', 'ManageController@functionList')->name('list');//admin.function.list
         Route::get('/add','ManageController@addFunction')->name('add');
         Route::post('/store','ManageController@createFunction')->name('create');
         Route::post('/destroy/{id}','ManageController@destroyFunction')->name('destroy');
