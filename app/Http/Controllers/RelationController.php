@@ -7,7 +7,6 @@ use App\User;
 
 class RelationController extends Controller
 {
-
     public function rel($id = 1)
     {
 /** one to one relation */
