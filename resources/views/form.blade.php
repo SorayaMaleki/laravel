@@ -39,7 +39,7 @@
                 right: 50%;
                 transform: translate(50%,0%)
             }
-        
+
             .fileUpload {
                 position: relative;
                 overflow: hidden;

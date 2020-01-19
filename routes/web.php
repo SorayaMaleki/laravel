@@ -41,9 +41,9 @@ Route::post('/getmsg','AjaxController@index');
 Route::get('layout', function() {
     return view('layout');
 });
+
 /** locale */
 Route::get('locale/{locale}','LocaleController@index')->name('locale');
-
 
 /** Mutator is a way to change data when it is set,
 so if you want all your emails in your database to be lowercase only, you could do:*/
@@ -82,3 +82,7 @@ Route::get('/poststags/{id?}', 'RelationController@poststags');
 
 /** pagination */
 Route::get('/pagination/{id?}', 'PaginationController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

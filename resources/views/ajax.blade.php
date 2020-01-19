@@ -1,10 +1,5 @@
-<html>
-   <head>
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-      <title>Ajax Example</title>
-
-      <script src="{{asset('js/jquery.min.js')}}"></script>
-
+     @extends('layouts.layout')
+     @section('title', 'ajax') //send page title to main layout
       <script>
          function getMessage() {
             $.ajax({
@@ -20,13 +15,7 @@
             });
          }
       </script>
-   </head>
-   
-   <body>
+
       <div id ="msg">This message will be replaced using Ajax.
          Click the button to replace the message.</div>
             <button onclick="getMessage()">replace</button>
-   
-   </body>
-
-</html>

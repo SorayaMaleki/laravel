@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('title', 'pagination') //send page title to main layout
 <table border="1">
     <thead>
     <tr>
