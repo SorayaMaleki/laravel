@@ -76,3 +76,9 @@ Route::get('/rel/{id?}', 'RelationController@rel');
 Route::get('/menytomenyrel/{id?}', 'RelationController@menytomenyrel');
 Route::get('/userprofile/{id?}', 'RelationController@userprofile');
 Route::get('/userposts/{id?}', 'RelationController@userposts');
+Route::get('/poststags/{id?}', 'RelationController@poststags');
+
+
+
+/** pagination */
+Route::get('/pagination/{id?}', 'PaginationController@index');

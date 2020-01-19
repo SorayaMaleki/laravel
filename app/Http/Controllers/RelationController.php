@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class RelationController extends Controller
 {
@@ -124,6 +125,25 @@ class RelationController extends Controller
             $result = $post;
 
         return $result;
+    }
+
+    public function poststags($id){
+
+                $post = Post::find($id);
+                DB::table('post_tags')->truncate();
+
+                $result = $post->tags()->attach([1,2,3,4]);
+//                $result = $post->tags()->attach([5]);
+//                $result = $post->tags()->detach([3]);
+//                $result = $post->tags()->detach();
+//
+//                $result = $post->tags()->sync([2,5,6]);
+//                $result = $post->tags()->syncWithoutDetaching([2,5,6]);
+//
+//                $result = $post->tags()->toggle([2,5,6]);
+
+
+                dd($result);
     }
 
 }

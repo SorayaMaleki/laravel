@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Profile;
+use App\User;
 
 class ProfileTableSeeder extends Seeder
 {
@@ -11,11 +13,11 @@ class ProfileTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Profile::truncate();
-        $userIds = \App\User::pluck('id')->toArray();
+        Profile::truncate();
+        $userIds = User::pluck('id')->toArray();
 
         foreach ($userIds as $userId){
-            factory(\App\Profile::class, 1)->create([
+            factory(Profile::class, 1)->create([
                 'user_id' => $userId
             ]);
         }
