@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             });
         }
+        Relation::morphMap([
+            'user' => User::class,
+            'post' => Post::class,
+        ]);
     }
 
     /**
