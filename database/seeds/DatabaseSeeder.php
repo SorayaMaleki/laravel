@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         $this->call(UsersTableSeeder::class);
-        $this->call(ProfileTableSeeder::class);
         $this->call(PostsTableSeeder::class);
+        $this->call(CommentsTableSeeder::class);
         $this->call(TagsTableSeeder::class);
-
+//        $this->call(ProfileTableSeeder::class);
         Schema::enableForeignKeyConstraints();
     }
 }

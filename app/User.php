@@ -31,7 +31,7 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(Profile::class, 'user_id', 'id');
+        return $this->hasOne(Profile::class);
 //        return Profile::where('user_id', $this->id)->first();
     }
 
@@ -44,5 +44,9 @@ class User extends Authenticatable
     {
         $time = Carbon::now()->subMinutes($minuts);
         return $this->posts()->where('created_at', '>=',  $time);
+    }
+    public function rates()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
     }
 }

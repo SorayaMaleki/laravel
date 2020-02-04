@@ -8,7 +8,7 @@ class Profile extends Model
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
         //        $this->>middleware('is.active');
         //        $this->>middleware('role:Admin');
     }
@@ -17,6 +17,6 @@ class Profile extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo();
     }
 }

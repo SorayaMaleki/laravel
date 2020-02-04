@@ -77,6 +77,7 @@ Route::get('/menytomenyrel/{id?}', 'RelationController@menytomenyrel');
 Route::get('/userprofile/{id?}', 'RelationController@userprofile');
 Route::get('/userposts/{id?}', 'RelationController@userposts');
 Route::get('/poststags/{id?}', 'RelationController@poststags');
+Route::get('/postsrate/{id?}', 'RelationController@postsrate');
 
 
 

@@ -51,4 +51,10 @@ class Post extends Model
 //        $result = \DB::table('post_tags')->where('post_id', $this->id)->pluck('tag_id')->toArray();
 //        return Tag::whereIn('id', $result)->get();
     }
+    public function comments(){
+        return $this->hasMany(Comment::class,'comments');
+    }
+    public function rates(){
+        return $this->morphMany(rate::class,'rateable');
+    }
 }
