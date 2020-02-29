@@ -10,4 +10,9 @@ class LocaleController extends Controller
         app()->setlocale($locale);
         return view('locale');
     }
+
+    public function locale(){
+
+    }
+
 }

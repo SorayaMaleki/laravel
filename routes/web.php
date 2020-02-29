@@ -79,11 +79,21 @@ Route::get('/userposts/{id?}', 'RelationController@userposts');
 Route::get('/poststags/{id?}', 'RelationController@poststags');
 Route::get('/postsrate/{id?}', 'RelationController@postsrate');
 
+/** mutator */
+Route::get('/mutator/{id?}', 'MutatorController@index');
+
+/** collection */
+Route::get('/collection/{id?}', 'CollectionController@index');
 
 
 /** pagination */
 Route::get('/pagination/{id?}', 'PaginationController@index');
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/** cache */
+Route::get('/cache',"CacheController@index")->name("cache");
