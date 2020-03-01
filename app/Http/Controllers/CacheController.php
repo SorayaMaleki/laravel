@@ -75,5 +75,31 @@ class CacheController extends Controller
 //        cache(['foo' => 50], 10);
 //        dd(cache('foo', 'dsds'));
 //        cache()->rememberForever();
+
+/** cache value with tag */ //cache driver cant be file(can be array)
+//        Cache::tags(['users', 'admins'])->put('user__1', User::find(1), 120);
+//        Cache::tags(['users', 'students'])->put('user__1', User::find(2), 120);
+
+//        dd(Cache::tags(['users', 'admins'])->get('user__1'));
+//        Cache::tags(['users', 'admins'])->flush();
+
+
+        /** cache in database
+         run php artisan cache:table to make cache migration
+         */
+
+//        Cache::put('user__1', User::find(1), 120);
+//        dd(Cache::get('user__1'));
+
+//        Cache::store('file')->put('foo', 'bar', 1);
+//        $result = Cache::store('file')->get('foo');
+
+/**
+ php artisan cache:clear [<store>] --------->delete cache
+ php artisan  config:cache-------->make config cache
+ php artisan  route:cache-------->make route cache
+ php artisan  view:cache-------->make view cache
+ php artisan cache forget <key> [<store>] ------->forget value of key
+*/
     }
 }
