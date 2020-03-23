@@ -12,9 +12,8 @@
 */
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+});
 
-Route::get('/index','HomeController@index')->name('form');
 
 /** route Only authenticated users with middlware */
 Route::get('profile', ['middleware' => 'auth.basic', function() {       /** or write in controller*/
@@ -55,21 +54,21 @@ Route::get('/MutatorEmail',function(){
 
 /** Authorization */
 // Go to the app  >>  providers  >>  AuthServiceProvider.php file and define the gate.
-Route::get('/Authorized','AuthorizationController@private')->name('Authorized');
-Route::get('/adminonly','AuthorizationController@adminonly')->name('adminOnly');
+//Route::get('/Authorized','AuthorizationController@private')->name('Authorized');
+//Route::get('/adminonly','AuthorizationController@adminonly')->name('adminOnly');
 
 /** prefix  */
-Route::group(['prefix' => 'admin','namespace' => 'ManageApi' , 'as' => 'admin.'],function (){
-    Route::get('/','ManageController@index')->name('index');//admin.index
-    Route::group(['prefix' => 'function', 'as' => 'function.'],function () {
-        Route::get('/function-list', 'ManageController@functionList')->name('list');//admin.function.list
-        Route::get('/add','ManageController@addFunction')->name('add');
-        Route::post('/store','ManageController@createFunction')->name('create');
-        Route::post('/destroy/{id}','ManageController@destroyFunction')->name('destroy');
-        Route::get('/edit/{id}','ManageController@editFunction')->name('edit');
-        Route::post('/update/{id}','ManageController@updateFunction')->name('update');
-    });
-});
+//Route::group(['prefix' => 'admin','namespace' => 'ManageApi' , 'as' => 'admin.'],function (){
+//    Route::get('/','ManageController@index')->name('index');//admin.index
+//    Route::group(['prefix' => 'function', 'as' => 'function.'],function () {
+//        Route::get('/function-list', 'ManageController@functionList')->name('list');//admin.function.list
+//        Route::get('/add','ManageController@addFunction')->name('add');
+//        Route::post('/store','ManageController@createFunction')->name('create');
+//        Route::post('/destroy/{id}','ManageController@destroyFunction')->name('destroy');
+//        Route::get('/edit/{id}','ManageController@editFunction')->name('edit');
+//        Route::post('/update/{id}','ManageController@updateFunction')->name('update');
+//    });
+//});
 
 /** route for relation example */
 Route::get('/rel/{id?}', 'RelationController@rel');
@@ -83,17 +82,33 @@ Route::get('/postsrate/{id?}', 'RelationController@postsrate');
 Route::get('/mutator/{id?}', 'MutatorController@index');
 
 /** collection */
-Route::get('/collection/{id?}', 'CollectionController@index');
+//Route::get('/collection/{id?}', 'CollectionController@index');
 
 
 /** pagination */
 Route::get('/pagination/{id?}', 'PaginationController@index');
 
+/** cache */
+Route::get('/cache',"CacheController@index")->name("cache");
 
+/** interface */
+Route::get('/interface',"InterfaceController@index")->name("interface");
+
+/** facade */
+Route::get('/facade',"FacadeController@index")->name('facade');
+
+/** error handler-exception */
+Route::get('/exception',"ExceptionController@index")->name('exception');
+
+
+
+//to show auth class(luminate\Support\Facades\Auth::class)
+// install barryvdh/laravel-ide-helper
+//in vendor\laravel\framework\src\Illuminate\Routing\Rsouter.php
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-/** cache */
-Route::get('/cache',"CacheController@index")->name("cache");
+/** authorization */
+Route::get('/authorization', 'AuthorizationController@index')->name('authorization');

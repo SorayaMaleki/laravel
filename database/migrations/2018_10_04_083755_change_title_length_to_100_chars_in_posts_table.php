@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangePasswordLengthTo50CharsInUserTable extends Migration
+class ChangeTitleLengthTo100CharsInPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ChangePasswordLengthTo50CharsInUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('password', 50)->change();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->string('title', 100)->change();
         });
     }
 

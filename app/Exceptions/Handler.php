@@ -1,7 +1,6 @@
 <?php
-
 namespace App\Exceptions;
-
+//هندل کردن خطاها
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 

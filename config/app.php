@@ -160,6 +160,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /* my service providers */
+        App\Providers\DbServiceProvider::class,
+        App\Providers\PaginatorServiceProvider::class,
+
+
     ],
 
     /*

@@ -1,9 +1,12 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -32,4 +35,6 @@ class UsersTableSeeder extends Seeder
 //            ['name' => 'meysam hashemi', 'email' => 'meysamhashemi@gmail.com', 'password' => bcrypt('132456')],
 //        ];
 //    }
+
+
 }

@@ -15,10 +15,9 @@ class ProfileTableSeeder extends Seeder
     {
         Profile::truncate();
         $userIds = User::pluck('id')->toArray();
-
         foreach ($userIds as $userId){
-            factory(Profile::class, 1)->create([
-                'user_id' => $userId
+            factory(App\Profile::class)->create([
+                'user_id' =>$userId,
             ]);
         }
     }
