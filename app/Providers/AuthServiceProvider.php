@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Policies\PostPolicy;
+use App\Post;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        Post::class=> PostPolicy::class,
     ];
 
     /**
@@ -25,6 +29,34 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+//        Gate::before(function ($user,$ability,$param){
+////           dd(func_get_args());
+//            /** use for example give all access to user 1(admin or developers) like see all posts */
+//            if ($user->id===2){
+//                return true;
+//            }
+//        });
+
+
+//        Gate::after(function ($user,$ability,$result,$param){
+//            /** use for example log result */
+//        });
+
+        Gate::define("post_show",function ($user,$post=null){
+            return $user->id ===$post->user_id;
+        });
+
+        Gate::define("create",function ($user,$model){
+            if ($model===User::class){
+                if ($user->id===1) {return true;}
+            }
+            elseif ($model===Post::class){
+                if ($user->id===2) {return true;}
+            }
+            return false;
+        });
+        Gate::define("is-admin",function ($user){
+            return $user->isAdmin();
+        });
     }
 }

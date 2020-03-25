@@ -101,7 +101,7 @@ Route::get('/facade',"FacadeController@index")->name('facade');
 Route::get('/exception',"ExceptionController@index")->name('exception');
 
 
-
+//php artisan make auth
 //to show auth class(luminate\Support\Facades\Auth::class)
 // install barryvdh/laravel-ide-helper
 //in vendor\laravel\framework\src\Illuminate\Routing\Rsouter.php
@@ -111,4 +111,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 /** authorization */
+/** gate */
 Route::get('/authorization', 'AuthorizationController@index')->name('authorization');
+Route::get('/gate', 'AuthorizationController@gate')->name('gate');
+
+/** policy */
+//php artisan make:policy PostPolicy --model Post
+//register to AuthServiceProvider
+Route::get('/policy', 'AuthorizationController@policy')->name('policy');
+
+/** send email */
+Route::get('/mail', 'MailController@index')->name('mail');
+Route::get('/showmail', 'MailController@showmail')->name('showmail');
+Route::get('/sendmailtouser', 'MailController@sendmailtouser')->name('sendmailtouser');
+Route::get('/markdown', 'MailController@markdown')->name('markdown');

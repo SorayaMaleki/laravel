@@ -49,4 +49,7 @@ class User extends Authenticatable
     {
         return $this->morphMany(Rate::class, 'rateable');
     }
+    public function isAdmin(){
+        return $this->id===1;
+    }
 }
