@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Test\Foo;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+//        Resource::wrap('attrs');
+//        Resource::withoutWrapping();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -40,16 +42,35 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'user_id', 'id');
 //        return Post::where('user_id', $this->id)->get();
     }
+
     public function scopeLastPosts($query, $minuts = 5)
     {
         $time = Carbon::now()->subMinutes($minuts);
-        return $this->posts()->where('created_at', '>=',  $time);
+        return $this->posts()->where('created_at', '>=', $time);
     }
+
     public function rates()
     {
         return $this->morphMany(Rate::class, 'rateable');
     }
-    public function isAdmin(){
-        return $this->id===1;
+
+    public function isAdmin()
+    {
+        return $this->id === 1;
+    }
+
+    public function generateToken()
+    {
+        $token = str_random(50);
+        $this->api_token = $token;
+        $this->save();
+        return $token;
+    }
+
+    public function logOut()
+    {
+        $this->api_token = null;
+        $this->save();
+        return $this;
     }
 }

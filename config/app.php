@@ -161,8 +161,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /* my service providers */
-        App\Providers\DbServiceProvider::class,
-        App\Providers\PaginatorServiceProvider::class,
+//        App\Providers\DbServiceProvider::class,
+//        App\Providers\PaginatorServiceProvider::class,
 
 
     ],

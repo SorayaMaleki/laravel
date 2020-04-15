@@ -16,38 +16,39 @@ Route::get('/', function () {
 
 
 /** route Only authenticated users with middlware */
-Route::get('profile', ['middleware' => 'auth.basic', function() {       /** or write in controller*/
+Route::get('profile', ['middleware' => 'auth.basic', function () {
+    /** or write in controller*/
 }]);
 
 /** custom  form */
-Route::get('form','FormController@index')->name('form');
-Route::post('register','FormController@register')->name('register');
+Route::get('form', 'FormController@index')->name('form');
+Route::post('register', 'FormController@register')->name('register');
 
 /** cooke and session */
-Route::get('/cookie/set','CookieController@setCookie')->name('setCookie');
-Route::get('/cookie/get','CookieController@getCookie')->name('getCookie');
-Route::get('session/get','SessionController@access');
-Route::get('session/set','SessionController@store');
-Route::get('session/remove','SessionController@delete');
+Route::get('/cookie/set', 'CookieController@setCookie')->name('setCookie');
+Route::get('/cookie/get', 'CookieController@getCookie')->name('getCookie');
+Route::get('session/get', 'SessionController@access');
+Route::get('session/set', 'SessionController@store');
+Route::get('session/remove', 'SessionController@delete');
 
 /** ajax request */
-Route::get('ajax',function(){
+Route::get('ajax', function () {
     return view('ajax');
 });
-Route::post('/getmsg','AjaxController@index');
+Route::post('/getmsg', 'AjaxController@index');
 
 /** layout */
-Route::get('layout', function() {
+Route::get('layout', function () {
     return view('layout');
 });
 
 /** locale */
-Route::get('locale/{locale}','LocaleController@index')->name('locale');
+Route::get('locale/{locale}', 'LocaleController@index')->name('locale');
 
 /** Mutator is a way to change data when it is set,
-so if you want all your emails in your database to be lowercase only, you could do:*/
-Route::get('/MutatorEmail',function(){
-    $user= App\User::find(1);
+ * so if you want all your emails in your database to be lowercase only, you could do:*/
+Route::get('/MutatorEmail', function () {
+    $user = App\User::find(1);
     $user->email = 'EMAIL@GMAIL.com';
     $user->save();
 });
@@ -58,70 +59,75 @@ Route::get('/MutatorEmail',function(){
 //Route::get('/adminonly','AuthorizationController@adminonly')->name('adminOnly');
 
 /** prefix  */
-//Route::group(['prefix' => 'admin','namespace' => 'ManageApi' , 'as' => 'admin.'],function (){
-//    Route::get('/','ManageController@index')->name('index');//admin.index
+//Route::group([
+//    'middleware' => ['web'],  //middleware
+//    'prefix' => 'm-a-d-m-i-n', // make m-a-d-m-i-n/post
+//    'namespace' => 'Admin' //folder in controller
+//    'as' => 'Admiiiin.' //name of route
+//], function () {
+//    Route::get('/','ManageController@index')->name('index');
 //    Route::group(['prefix' => 'function', 'as' => 'function.'],function () {
-//        Route::get('/function-list', 'ManageController@functionList')->name('list');//admin.function.list
+    /** name=Admiiiin.function.list and url= m-a-d-m-i-n/function/list*/
+//        Route::get('/list', 'ManageController@List')->name('list');
 //        Route::get('/add','ManageController@addFunction')->name('add');
-//        Route::post('/store','ManageController@createFunction')->name('create');
-//        Route::post('/destroy/{id}','ManageController@destroyFunction')->name('destroy');
-//        Route::get('/edit/{id}','ManageController@editFunction')->name('edit');
 //        Route::post('/update/{id}','ManageController@updateFunction')->name('update');
 //    });
 //});
 
-/** route for relation example */
-Route::get('/rel/{id?}', 'RelationController@rel');
-Route::get('/menytomenyrel/{id?}', 'RelationController@menytomenyrel');
-Route::get('/userprofile/{id?}', 'RelationController@userprofile');
-Route::get('/userposts/{id?}', 'RelationController@userposts');
-Route::get('/poststags/{id?}', 'RelationController@poststags');
-Route::get('/postsrate/{id?}', 'RelationController@postsrate');
+    /** route for relation example */
+    Route::get('/rel/{id?}', 'RelationController@rel');
+    Route::get('/menytomenyrel/{id?}', 'RelationController@menytomenyrel');
+    Route::get('/userprofile/{id?}', 'RelationController@userprofile');
+    Route::get('/userposts/{id?}', 'RelationController@userposts');
+    Route::get('/poststags/{id?}', 'RelationController@poststags');
+    Route::get('/postsrate/{id?}', 'RelationController@postsrate');
 
-/** mutator */
-Route::get('/mutator/{id?}', 'MutatorController@index');
+    /** mutator */
+    Route::get('/mutator/{id?}', 'MutatorController@index');
 
-/** collection */
+    /** collection */
 //Route::get('/collection/{id?}', 'CollectionController@index');
 
 
-/** pagination */
-Route::get('/pagination/{id?}', 'PaginationController@index');
+    /** pagination */
+    Route::get('/pagination/{id?}', 'PaginationController@index');
 
-/** cache */
-Route::get('/cache',"CacheController@index")->name("cache");
+    /** cache */
+    Route::get('/cache', "CacheController@index")->name("cache");
 
-/** interface */
-Route::get('/interface',"InterfaceController@index")->name("interface");
+    /** interface */
+    Route::get('/interface', "InterfaceController@index")->name("interface");
 
-/** facade */
-Route::get('/facade',"FacadeController@index")->name('facade');
+    /** facade */
+    Route::get('/facade', "FacadeController@index")->name('facade');
 
-/** error handler-exception */
-Route::get('/exception',"ExceptionController@index")->name('exception');
+    /** error handler-exception */
+    Route::get('/exception', "ExceptionController@index")->name('exception');
 
 
 //php artisan make auth
 //to show auth class(luminate\Support\Facades\Auth::class)
 // install barryvdh/laravel-ide-helper
 //in vendor\laravel\framework\src\Illuminate\Routing\Rsouter.php
-Auth::routes();
+    Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 
 
-/** authorization */
-/** gate */
-Route::get('/authorization', 'AuthorizationController@index')->name('authorization');
-Route::get('/gate', 'AuthorizationController@gate')->name('gate');
+    /** authorization */
+    /** gate */
+    Route::get('/authorization', 'AuthorizationController@index')->name('authorization');
+    Route::get('/gate', 'AuthorizationController@gate')->name('gate');
 
-/** policy */
+    /** policy */
 //php artisan make:policy PostPolicy --model Post
 //register to AuthServiceProvider
-Route::get('/policy', 'AuthorizationController@policy')->name('policy');
+    Route::get('/policy', 'AuthorizationController@policy')->name('policy');
 
-/** send email */
-Route::get('/mail', 'MailController@index')->name('mail');
-Route::get('/showmail', 'MailController@showmail')->name('showmail');
-Route::get('/sendmailtouser', 'MailController@sendmailtouser')->name('sendmailtouser');
-Route::get('/markdown', 'MailController@markdown')->name('markdown');
+    /** send email */
+    Route::get('/mail', 'MailController@index')->name('mail');
+    Route::get('/showmail', 'MailController@showmail')->name('showmail');
+    Route::get('/sendmailtouser', 'MailController@sendmailtouser')->name('sendmailtouser');
+    Route::get('/markdown', 'MailController@markdown')->name('markdown');
+
+
