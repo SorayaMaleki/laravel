@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-//test
+
 class Comment extends Model
 {
      protected $fillable=[
