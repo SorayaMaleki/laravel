@@ -14,7 +14,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 /** route Only authenticated users with middlware */
 Route::get('profile', ['middleware' => 'auth.basic', function () {
     /** or write in controller*/
@@ -88,6 +87,15 @@ Route::get('/MutatorEmail', function () {
     /** collection */
 //Route::get('/collection/{id?}', 'CollectionController@index');
 
+   /** lazy collection */
+Route::get('/lazy-collection', 'LazyCollectionController@index');
+
+   /** cursor */
+Route::get('/cursor', 'LazyCollectionController@cursor');
+
+   /** eager */
+Route::get('/eager', 'LazyCollectionController@eager');
+
 
     /** pagination */
     Route::get('/pagination/{id?}', 'PaginationController@index');
@@ -105,7 +113,7 @@ Route::get('/MutatorEmail', function () {
     Route::get('/exception', "ExceptionController@index")->name('exception');
 
 
-//php artisan make auth
+//php artisan make auth --->changed in laravel6 to php artisan ui bootstrap --auth
 //to show auth class(luminate\Support\Facades\Auth::class)
 // install barryvdh/laravel-ide-helper
 //in vendor\laravel\framework\src\Illuminate\Routing\Rsouter.php
@@ -130,4 +138,24 @@ Route::get('/MutatorEmail', function () {
     Route::get('/sendmailtouser', 'MailController@sendmailtouser')->name('sendmailtouser');
     Route::get('/markdown', 'MailController@markdown')->name('markdown');
 
+    /** subquery  */
+Route::get('/subquery','SubQueryController@index')->name('subquery');
 
+
+//php artisan ui bootstrap --auth
+Route::get('/passwordgdg', function () {
+    dd("we are here");
+})->middleware('password.confirm');
+
+
+
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

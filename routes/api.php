@@ -25,9 +25,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post("/loginApi","ApiController@loginApi")->name('loginApi');
 Route::post("/logoutApi","ApiController@logoutApi")->middleware('auth:api')->name('logoutApi');
 Route::get("/currentUser","ApiController@currentUser")->middleware('auth:api')->name('currentUser');
+Route::post("/register","ApiController@register");
 
 //add prefix post(api/post/...)
-Route::group(["middleware"=>['auth:api'],"prefix"=>"post","as"=>"posts."],function (){
+Route::group(["prefix"=>"post","as"=>"posts."],function (){
     Route::get("/postsList/", "ApiController@postsList")->name("postsList");
     Route::get("/postsPagedList/", "ApiController@postsPagedList")->name("postsPagedList");
     Route::get("/getPost/{id?}", "ApiController@getPost")->name("getPost");
@@ -37,7 +38,8 @@ Route::group(["middleware"=>['auth:api'],"prefix"=>"post","as"=>"posts."],functi
 });
 
 //add prefix user(api/user/...)
-Route::group(["middleware"=>['auth:api'],"prefix"=>"user","as"=>"posts."],function (){
+//Route::group(["middleware"=>['auth:api'],"prefix"=>"user","as"=>"posts."],function (){
+Route::group(["prefix"=>"user","as"=>"users."],function (){
     Route::get("usersList", "ApiController@usersList")->name("usersList");
     Route::get("/getUser/{id?}", "ApiController@getUser")->name("getUser");
     Route::Post("/createUser/", "ApiController@createUser")->name("createUser");
@@ -45,4 +47,6 @@ Route::group(["middleware"=>['auth:api'],"prefix"=>"user","as"=>"posts."],functi
     Route::put("/updateUser/{id}", "ApiController@updateUser")->name("updateUser");
 
 });
+Route::post("download","ApiController@download");
+
 

@@ -1,0 +1,6 @@
+laravel/ui(for make bootstrap/vue/react view)
+astrotomic/ignition-stackoverflow --dev(for stack over flow link)
+barryvdh/laravel-debugba(for debugger)
+doctrine/dbal(for change on column of a table in migration)
+laravel/passport(for laravel api)
+laravel/facade/ignition(for new error page)

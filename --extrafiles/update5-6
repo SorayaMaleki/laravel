@@ -1,0 +1,8 @@
+composer update
+--if package doesnt support delete or update them
+composer require laravel/ui
+php artisan  ui bootstrap --auth
+npm install && npm run dev
+composer remove filp/whoops to remove last error page
+composer require facade/ignition to install new
+

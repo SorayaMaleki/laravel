@@ -7,6 +7,7 @@ use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        Passport::routes();
+        Passport::tokensExpireIn(now()->addDay(1));
+        Passport::refreshTokensExpireIn(now()->addDay(30));
 //        Gate::before(function ($user,$ability,$param){
 ////           dd(func_get_args());
 //            /** use for example give all access to user 1(admin or developers) like see all posts */

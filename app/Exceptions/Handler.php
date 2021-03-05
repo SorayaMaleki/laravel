@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 //هندل کردن خطاها
 use App\Http\Middleware\Authenticate;
-use Exception;
+use Throwable;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
@@ -32,10 +32,10 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param \Exception $exception
+     * @param \Throwable $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -44,15 +44,14 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Exception $exception
+     * @param \Throwable $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
-dd($exception);
+
 //        header must has Accept: application/json
         if ($request->wantsJson()) {
-
             if ($exception instanceof ValidationException) {
                 return $this->renderValidationException($exception);
             }
@@ -60,7 +59,7 @@ dd($exception);
                 return $this->renderAuthenticationException($exception);
             }
 
-            return $this->renderOtherExceptions($exception);
+//            return $this->renderOtherExceptions($exception);
         }
         return parent::render($request, $exception);
     }
@@ -69,7 +68,7 @@ dd($exception);
      * @param Exception $exception
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    private function renderValidationException(Exception $exception)
+    private function renderValidationException(Throwable $exception)
     {
         return response([
             'errors' => $exception->errors()
@@ -78,10 +77,10 @@ dd($exception);
     }
 
     /**
-     * @param Exception $exception
+     * @param Throwable $exception
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    private function renderOtherExceptions(Exception $exception)
+    private function renderOtherExceptions(Throwable $exception)
     {
         $exception = $this->prepareException($exception);
         $code = method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 500;
@@ -96,7 +95,7 @@ dd($exception);
         ], $code);
     }
 
-    private function renderAuthenticationException(Exception $exception)
+    private function renderAuthenticationException(Throwable $exception)
     {
         return response([
             'error'=>'UNAUTHORIZED'

@@ -23,13 +23,28 @@ class ApiController extends Controller
 
     public function loginApi(LoginRequest $request)
     {
+/* to use of this login must change api from token to passport in config/auth
+'api' => [
+'driver' => 'passport',
+'provider' => 'users',
+],
+change to
+'api' => [
+'driver' => 'token',
+'provider' => 'users',
+],
+*/
+
+//  delete  use HasApiTokens; in user model
         auth()->attempt([
             'email' => $request->username,
             'password' => $request->password,
         ]);
         if (auth()->check()) {
+//            $token = auth()->user()->generateToken();
+            $token = auth()->user()->createToken('password-for-user-' . auth()->id());
             return response([
-                'token' => auth()->user()->generateToken()
+                'token' => $token->accessToken
             ]);
         }
         return response([
@@ -47,6 +62,21 @@ class ApiController extends Controller
     public function currentUser()
     {
         return auth('api')->user();
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+        return response($user, 201);
     }
 
 ///////////// more example ////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +144,7 @@ class ApiController extends Controller
 
     public function updatePost(UpdatePostRequest $request, $id)
     {
+dd($request->all());
         $data = $request->only(['title', 'body']);
         $post = Post::findOrFail($id);
         $post->update($data);
@@ -167,5 +198,10 @@ class ApiController extends Controller
         $user->update($data);
         return response($user, 202);
 
+    }
+
+    public function download(){
+
+        return file_get_contents(public_path("/flower-256.png"));
     }
 }
