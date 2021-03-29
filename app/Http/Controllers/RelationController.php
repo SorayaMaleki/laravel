@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\rate;
-use App\User;
+use App\Models\Post;
+use App\Models\rate;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class RelationController extends Controller

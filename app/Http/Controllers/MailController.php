@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\MarkdownMail;
 use App\Mail\TestMail;
 use App\Mail\UserMail;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use function GuzzleHttp\Promise\all;

@@ -19,19 +19,22 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             "id" => $this->id,
             "UserName" => $this->name,
             "email" => $this->email,
-            "foo" => "bar",
+            "foo" => "baaaar",
             "posts" => $this->whenLoaded('posts', function () use($request){
 //              return $this->posts;
               return $request->with == "posts"?PostResource::collection($this->posts):new MissingValue();
             }),
-            $this->mergeWhen($request->with == "posts", [
-                "fooo1" => "bar1",
-                "fooo" => "bar"
-            ])
+
+/**            for  add multiple foo **/
+//            $this->mergeWhen($request->with == "posts", [
+//                "fooo1" => "bar1",
+//                "fooo" => "bar"
+//            ])
         ];
 //        return parent::toArray($request);
     }

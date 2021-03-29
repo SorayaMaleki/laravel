@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Connection\DbConnection;
 use App\Connection\MysqlConnection;
 use App\Connection\SqliteConnection;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class ConnectionServiceProvider extends ServiceProvider

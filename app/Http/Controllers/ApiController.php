@@ -11,10 +11,11 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\PostResourceCollection;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
-use App\Post;
-use App\User;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class ApiController extends Controller
 {
@@ -23,16 +24,17 @@ class ApiController extends Controller
 
     public function loginApi(LoginRequest $request)
     {
+
 /* to use of this login must change api from token to passport in config/auth
-'api' => [
-'driver' => 'passport',
-'provider' => 'users',
-],
+        'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+        ],
 change to
-'api' => [
-'driver' => 'token',
-'provider' => 'users',
-],
+        'api' => [
+        'driver' => 'token',
+        'provider' => 'users',
+        ],
 */
 
 //  delete  use HasApiTokens; in user model
@@ -40,12 +42,10 @@ change to
             'email' => $request->username,
             'password' => $request->password,
         ]);
+
         if (auth()->check()) {
-//            $token = auth()->user()->generateToken();
-            $token = auth()->user()->createToken('password-for-user-' . auth()->id());
-            return response([
-                'token' => $token->accessToken
-            ]);
+            $token = auth()->user()->generateToken();
+            return response()->json(compact('token'));
         }
         return response([
             'error' => 'اطلاعات کاربری اشتباه وارد شده است'
@@ -90,6 +90,56 @@ change to
         $response->header('Foo', 'BAR');
         $response->setStatusCode(202);
         return $response;
+    }
+
+    /////// users ////////////////////////////////////////////////////////////////////////////////////
+    public function usersList()
+    {
+
+//        return User::all();
+        /*to return custom data with user*/
+        $user = User::all();
+//        $user=UserResource::collection($user->load('posts'));
+        $user = new UserResourceCollection($user->load('posts'));
+        return $user;
+    }
+
+    public function getUser(Request $request, $id)
+    {
+//        return User::findOrFail($id);
+        /*to return custom data with user*/
+        $user = User::findOrFail($id);
+        $user = new UserResource($user->load('posts'));
+        return $user;
+    }
+
+    public function createUser(CreateUserRequest $request)
+    {
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+        return response($user, 201);
+    }
+
+    public function deleteUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response(null, 204);
+    }
+
+    public function updateUser(UpdateUserRequest $request, $id)
+    {
+        $data = $request->only(['name', 'password']);
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        $user = User::findOrFail($id);
+        $user->update($data);
+        return response($user, 202);
+
     }
 
 ///////////// posts ////////////////////////////////////////////////////////////////////////////////
@@ -149,55 +199,6 @@ dd($request->all());
         $post = Post::findOrFail($id);
         $post->update($data);
         return response($post, 202);
-    }
-
-/////// users ////////////////////////////////////////////////////////////////////////////////////
-    public function usersList()
-    {
-//        return User::all();
-        /*to return custom data with user*/
-        $user = User::all();
-//        $user=UserResource::collection($user->load('posts'));
-        $user = new UserResourceCollection($user->load('posts'));
-        return $user;
-    }
-
-    public function getUser(Request $request, $id)
-    {
-//        return User::findOrFail($id);
-        /*to return custom data with user*/
-        $user = User::findOrFail($id);
-        $user = new UserResource($user->load('posts'));
-        return $user;
-    }
-
-    public function createUser(CreateUserRequest $request)
-    {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-        return response($user, 201);
-    }
-
-    public function deleteUser(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return response(null, 204);
-    }
-
-    public function updateUser(UpdateUserRequest $request, $id)
-    {
-        $data = $request->only(['name', 'password']);
-        if (!empty($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        }
-        $user = User::findOrFail($id);
-        $user->update($data);
-        return response($user, 202);
-
     }
 
     public function download(){

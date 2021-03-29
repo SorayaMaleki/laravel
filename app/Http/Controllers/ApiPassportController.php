@@ -11,8 +11,8 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\PostResourceCollection;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
-use App\Post;
-use App\User;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Passport\HasApiTokens;
@@ -70,7 +70,7 @@ class ApiPassportController extends Controller
 //Passport::refreshTokensExpireIn(now()->addDay(30));
 
 //Personal Access:
-/*public function loginApi(LoginRequest $request)
+public function loginApi(LoginRequest $request)
     {
         auth()->attempt([
             'email' => $request->username,
@@ -86,5 +86,5 @@ class ApiPassportController extends Controller
             'error' => 'اطلاعات کاربری اشتباه وارد شده است'
         ], 401);
     }
-    */
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,4 +27,5 @@ class HomeController extends Controller
        $a=date("Y m d H:i:s");
        dd($a);
     }
+
 }

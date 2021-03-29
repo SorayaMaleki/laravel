@@ -50,17 +50,17 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
 
-//        header must has Accept: application/json
-        if ($request->wantsJson()) {
-            if ($exception instanceof ValidationException) {
-                return $this->renderValidationException($exception);
-            }
-            if ($exception instanceof AuthenticationException){
-                return $this->renderAuthenticationException($exception);
-            }
-
+        /** header must has Accept: application/json **/
+//        if ($request->wantsJson()) {
+//            if ($exception instanceof ValidationException) {
+//                return $this->renderValidationException($exception);
+//            }
+//            if ($exception instanceof AuthenticationException){
+//                return $this->renderAuthenticationException($exception);
+//            }
+//
 //            return $this->renderOtherExceptions($exception);
-        }
+//        }
         return parent::render($request, $exception);
     }
 

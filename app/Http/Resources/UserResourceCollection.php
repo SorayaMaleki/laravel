@@ -22,9 +22,9 @@ class UserResourceCollection extends ResourceCollection
     }
     public function with($request)
     {
-        return[
-            'status'=>'success'
-        ];
-//        return parent::with($request);
+//        return[
+//            'status'=>'success'
+//        ];
+        return parent::with($request);
     }
 }

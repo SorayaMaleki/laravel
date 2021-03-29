@@ -38,8 +38,7 @@ Route::group(["prefix"=>"post","as"=>"posts."],function (){
 });
 
 //add prefix user(api/user/...)
-//Route::group(["middleware"=>['auth:api'],"prefix"=>"user","as"=>"posts."],function (){
-Route::group(["prefix"=>"user","as"=>"users."],function (){
+Route::group(["middleware"=>['auth:api'],"prefix"=>"user","as"=>"users."],function (){
     Route::get("usersList", "ApiController@usersList")->name("usersList");
     Route::get("/getUser/{id?}", "ApiController@getUser")->name("getUser");
     Route::Post("/createUser/", "ApiController@createUser")->name("createUser");

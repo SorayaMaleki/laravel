@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +48,7 @@ Route::get('locale/{locale}', 'LocaleController@index')->name('locale');
 /** Mutator is a way to change data when it is set,
  * so if you want all your emails in your database to be lowercase only, you could do:*/
 Route::get('/MutatorEmail', function () {
-    $user = App\User::find(1);
+    $user = App\Models\User::find(1);
     $user->email = 'EMAIL@GMAIL.com';
     $user->save();
 });
@@ -117,9 +118,6 @@ Route::get('/eager', 'LazyCollectionController@eager');
 //to show auth class(luminate\Support\Facades\Auth::class)
 // install barryvdh/laravel-ide-helper
 //in vendor\laravel\framework\src\Illuminate\Routing\Rsouter.php
-    Auth::routes();
-
-    Route::get('/home', 'HomeController@index')->name('home');
 
 
     /** authorization */
@@ -148,13 +146,6 @@ Route::get('/passwordgdg', function () {
 })->middleware('password.confirm');
 
 
-
-
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
