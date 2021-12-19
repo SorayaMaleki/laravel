@@ -15,7 +15,9 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes;
     use HasApiTokens;
-
+ protected $casts=[
+     "created_at"=>"datetime:Y-m-d"
+ ];
     /**
      * The attributes that are mass assignable.
      *
